@@ -52,9 +52,10 @@ exports.registerUser = async (req, res) => {
     const destination = path.join(__dirname, "../", targetDir);
 
     //Now send email to verify
-    await SendEmail(user.email, "Verify your Email Address", data, destination);
+    // await SendEmail(user.email, "Verify your Email Address", data, destination);
 
-    res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "An Email Send to Your Account, Please Verify"));
+    // res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "An Email Send to Your Account, Please Verify"));
+    res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Your account has been successfully created."));
 
   } catch (error) {
     errorHandling(error, res);
@@ -101,19 +102,19 @@ exports.loginUser = asyncHandler(async (req, res) => {
   let userScore = await TravelRequest.find({ travelerId: user._id, isPaid: true }).countDocuments();
 
   let token;
-  if (!user.verified) {
-    token = user.generateAuthToken();
-    const backend_url = process.env.BASE_URL || "https://flutterapi.testdevlink.net/lug-traveler/";
+  // if (!user.verified) {
+  //   token = user.generateAuthToken();
+  //   const backend_url = process.env.BASE_URL || "https://flutterapi.testdevlink.net/lug-traveler/";
 
-    const url = `${backend_url}users/${user.id}/verify/${token}`;
-    const data = { url: url, name: user.fullname };
+  //   const url = `${backend_url}users/${user.id}/verify/${token}`;
+  //   const data = { url: url, name: user.fullname };
 
-    const targetDir = "/views/verify-email.ejs";
-    const destination = path.join(__dirname, "../", targetDir);
+  //   const targetDir = "/views/verify-email.ejs";
+  //   const destination = path.join(__dirname, "../", targetDir);
 
-    await SendEmail(user.email, "Verify your Email Address", data, destination);
-    return res.status(STATUS_CODES.SUCCESS).send(sendResponse(false, "Your Account is not verified, An Email Send to Your Account, Please Verify & Try Again"));
-  }
+  //   await SendEmail(user.email, "Verify your Email Address", data, destination);
+  //   return res.status(STATUS_CODES.SUCCESS).send(sendResponse(false, "Your Account is not verified, An Email Send to Your Account, Please Verify & Try Again"));
+  // }
 
   token = user.generateAuthToken();
   user = await User.findById(user.id);

@@ -48,16 +48,73 @@ exports.addCities = async (req, res) => {
 }
 
 // Cities and countries data
+// exports.filterLocation = async (req, res) => {
+//     try {
+//         const search = req.query.search?.trim();
+//         Location.aggregate([
+//             {
+//                 $addFields: {
+//                     cities: {
+//                         $filter: {
+//                             input: "$cities",
+//                             as: "city",
+//                             cond: { $regexMatch: { input: "$$city", regex: search, options: "i" } }
+//                         }
+//                     }
+//                 }
+//             },
+//             {
+//                 $match: {
+//                     $or: [
+//                         { "cities": { $exists: true, $ne: [] } }, // filter out documents where cities array is empty or doesn't exist
+//                         { "country": { $regex: search, $options: "i" } }
+//                     ]
+//                 }
+//             }
+//         ]).exec().then(result => {
+//             // Handle result
+//             const formattedResult = result.map(item => {
+//                 if (item.cities && item.cities.length > 0) {
+//                     return item.cities.map(city => `${city}, ${item.country}`);
+//                 } else {
+//                     return `${item.country}`;
+//                 }
+//             }).flat(); // Flatten the array
+
+//             res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Get Results", formattedResult));
+//         }).catch(err => {
+//             // Handle error
+//             res.status(STATUS_CODES.BAD_REQUEST).send(sendResponse(true, "Something Went Wrong", err));
+//         });
+
+
+//     } catch (error) {
+//         logger.error(error.message);
+//         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send(sendResponse(true, error.message));
+//     }
+// }
+
 exports.filterLocation = async (req, res) => {
     try {
-        Location.aggregate([
+        const search = req.query.search?.trim();
+        if (!search) {
+            return res.status(STATUS_CODES.BAD_REQUEST).send(sendResponse(false, "Search query is required"));
+        }
+
+        const result = await Location.aggregate([
             {
                 $addFields: {
                     cities: {
                         $filter: {
                             input: "$cities",
                             as: "city",
-                            cond: { $regexMatch: { input: "$$city", regex: req.query.search, options: "i" } }
+                            cond: {
+                                $regexMatch: {
+                                    input: "$$city",
+                                    regex: `^${search}`,
+                                    options: "i"
+                                }
+                            }
                         }
                     }
                 }
@@ -65,30 +122,24 @@ exports.filterLocation = async (req, res) => {
             {
                 $match: {
                     $or: [
-                        { "cities": { $exists: true, $ne: [] } }, // filter out documents where cities array is empty or doesn't exist
-                        { "country": { $regex: req.query.search, $options: "i" } }
+                        { cities: { $exists: true, $ne: [] } },
+                        { country: { $regex: `^${search}`, $options: "i" } }
                     ]
                 }
-            }
-        ]).exec().then(result => {
-            // Handle result
-            const formattedResult = result.map(item => {
-                if (item.cities && item.cities.length > 0) {
-                    return item.cities.map(city => `${city}, ${item.country}`);
-                } else {
-                    return `${item.country}`;
-                }
-            }).flat(); // Flatten the array
+            },
+            // Optionally add a limit:
+            // { $limit: 20 }
+        ]);
 
-            res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Get Results", formattedResult));
-        }).catch(err => {
-            // Handle error
-            res.status(STATUS_CODES.BAD_REQUEST).send(sendResponse(true, "Something Went Wrong", err));
-        });
+        const formattedResult = result.flatMap(item =>
+            item.cities.length > 0
+                ? item.cities.map(city => `${city}, ${item.country}`)
+                : [`${item.country}`]
+        );
 
-
+        res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Get Results", formattedResult));
     } catch (error) {
         logger.error(error.message);
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send(sendResponse(true, error.message));
+        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send(sendResponse(false, error.message));
     }
 }

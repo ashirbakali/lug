@@ -9,8 +9,8 @@ const transport = nodemailer.createTransport({
     port: Number(process.env.EMAIL_PORT),
     secure: Boolean(process.env.SECURE),
     auth: {
-        user: "appteam023@gmail.com",
-        pass: "vqnsqmnkonzzpghs"
+        user: "luginc.net@gmail.com",
+        pass: "Zain@1234"
     },
 });
 
@@ -21,7 +21,7 @@ exports.SendEmail = (receiver, subject, content, destination) => {
                 console.log(err.message);
             } else {
                 var mailOptions = {
-                    from: `Lug Traveler ${"appteam023@gmail.com"}`,
+                    from: `Lug Traveler ${"luginc.net@gmail.com"}`,
                     to: receiver,
                     subject: subject,
                     html: data

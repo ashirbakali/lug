@@ -40,22 +40,79 @@ exports.getTravellers = asyncHandler(async (req, res) => {
 });
 
 // get all traverls to show on screen controller
+// exports.getAllTravelsForScreen = async (req, res) => {
+//     try {
+//         const query = { limit: parseInt(req.query.limit) ? parseInt(req.query.limit) : 10 }
+//         const options = { userId: { $ne: req.user.id } }
+//         const populateOptions = [{ path: 'userId', select: "-chatFriends -createdAt -updatedAt" }];
+
+//         const results = await paginate(Travel, query, options, populateOptions);
+//         if (results?.length === 0) return res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Ops! No Travel Found", results));
+//         res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Travellers with searched places", results));
+
+//     } catch (error) {
+//         errorHandling(error, res);
+//     }
+// }
+
+
 exports.getAllTravelsForScreen = async (req, res) => {
     try {
-        const query = { limit: parseInt(req.query.limit) ? parseInt(req.query.limit) : 10 }
-        const options = { userId: { $ne: req.user.id } }
-        const populateOptions = [{ path: 'userId', select: "-chatFriends -createdAt -updatedAt" }];
+        const limit = parseInt(req.query.limit) || 10;
 
-        const results = await paginate(Travel, query, options, populateOptions);
-        if (results?.length === 0) return res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Ops! No Travel Found", results));
-        res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Travellers with searched places", results));
+        const options = { userId: { $ne: req.user.id }, isDeleted: false };
+        const populateOptions = [
+            {
+                path: 'userId',
+                select: "-chatFriends -createdAt -updatedAt"
+            },
+            {
+                path: 'requestToTravelerId',
+                select: 'userId'
+            }
+        ];
+
+        // ✅ Correct destructuring here
+        const { results, totalResults } = await paginate(Travel, { limit }, options, populateOptions);
+
+        const enhancedResults = results.map(travel => {
+            const applied = travel.requestToTravelerId.some(reqDoc =>
+                reqDoc.userId?.toString() === req.user.id.toString()
+            );
+
+            const travelObj = travel.toObject();
+            delete travelObj.requestToTravelerId;
+
+            return {
+                ...travelObj,
+                isApplied: applied
+            };
+        });
+
+        if (enhancedResults.length === 0) {
+            return res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Ops! No Travel Found", enhancedResults));
+        }
+
+        res.status(STATUS_CODES.SUCCESS).send(sendResponse(true, "Travellers with searched places", {
+            results: enhancedResults,
+            totalResults
+        }));
 
     } catch (error) {
         errorHandling(error, res);
     }
-}
+};
+
+
+
+
+
+
+
 
 // Filter Travelers by radius controller
+
+
 exports.gettravelersByRadius = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
