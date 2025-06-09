@@ -1,0 +1,35 @@
+{
+  "name": "lug-traveler-db",
+  "version": "1.0.0",
+  "description": "Luggage traveler App Using Nodejs, mongoose, jwt, nodemailer & multer",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Canvas Digital",
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1668.0",
+    "axios": "^1.6.7",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.21.2",
+    "fcm-node": "^1.6.1",
+    "geolib": "^3.3.4",
+    "googleapis": "^140.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.2",
+    "simpl-schema": "^3.4.6",
+    "socket.io": "^4.7.4",
+    "stripe": "^17.3.0",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
+  }
+}

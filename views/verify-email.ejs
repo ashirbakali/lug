@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <style type="text/css">
+    body {
+      font-family: "Helvetica", sans-serif;
+      background-color: #f9f9f9;
+      color: #555;
+      text-align: center !important;
+      margin: 50px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto !important;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #3498db;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .verify_btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .verify_btn:hover {
+      background-color: #217dbb;
+      transform: scale(1.05);
+    }
+
+    strong {
+      color: #3498db;
+    }
+
+    img {
+      max-width: 20%;
+      height: auto;
+    }
+
+    @media screen and (max-width: 669px) {
+      img {
+        max-width: 14%;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .verify_btn {
+        font-size: 14px;
+        padding: 9px 14px;
+      }
+    }
+
+    @media screen and (max-width: 636px) {
+      img {
+        max-width: 13%;
+      }
+
+      .title {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+
+      .verify_btn {
+        font-size: 13px;
+        padding: 9px 14px;
+      }
+    }
+
+    @media screen and (max-width: 570px) {
+      p {
+        font-size: 12px;
+      }
+    }
+
+    @media screen and (max-width: 537px) {
+      p {
+        font-size: 11px;
+      }
+
+      img {
+        max-width: 12%;
+      }
+
+      .title {
+        font-size: 21px;
+      }
+
+      .verify_btn {
+        font-size: 12px;
+        padding: 9px 14px;
+      }
+    }
+
+    @media screen and (max-width: 436px) {
+      .verify_btn {
+        font-size: 11px;
+      }
+
+      img {
+        max-width: 25%;
+        height: auto;
+      }
+    }
+
+    @media screen and (max-width: 339px) {
+      body {
+        margin: 0;
+      }
+
+      .verify_btn {
+        font-size: 10px;
+      }
+    }
+
+    @media screen and (max-width: 328px) {
+      .verify_btn {
+        width: 140px;
+        font-size: 9px;
+        animation: none;
+      }
+    }
+  </style>
+  <title>Email Verified</title>
+</head>
+
+<body>
+  <div class="container">
+    <img src="https://cdn-icons-png.flaticon.com/512/6364/6364343.png" alt="Verified" />
+    <h1 class="title">Email Verification</h1>
+    <p>Hello <strong>
+        <%= content.name %>
+      </strong>,</p>
+    <p>
+      You recently requested to Verify your Email. Click the link below to
+      Verify it:
+    </p>
+    <a href="<%= content.url %>" target="_blank" class="verify_btn">
+      Verify Email Now
+    </a>
+    <p>If you didn't request this, please ignore this email.</p>
+    <div>
+      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0"
+        width="100%" border="0">
+        <tbody>
+          <tr>
+            <td
+              style="overflow-wrap:break-word;word-break:break-word;padding:0px 0px 10px;font-family:arial,helvetica,sans-serif;"
+              align="left">
+
+              <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #000000;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                <tbody>
+                  <tr style="vertical-align: top">
+                    <td
+                      style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                      <span>&#160;</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0"
+        width="100%" border="0">
+        <tbody>
+          <tr>
+            <td
+              style="overflow-wrap:break-word;word-break:break-word;padding:0px 0px 10px;font-family:arial,helvetica,sans-serif;"
+              align="left">
+
+              <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #000000;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                <tbody>
+                  <tr style="vertical-align: top">
+                    <td
+                      style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                      <span>&#160;</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0"
+        width="100%" border="0">
+        <tbody>
+          <tr>
+            <td
+              style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 60px;font-family:arial,helvetica,sans-serif;"
+              align="left">
+              <div align="center">
+                <div style="display: table; max-width:187px;">
+                  <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32"
+                    style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 15px">
+                    <tbody>
+                      <tr style="vertical-align: top">
+                        <td align="left" valign="middle"
+                          style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+                          <a href="https://www.facebook.com/unlayer" title="Facebook" target="_blank">
+                            <img
+                              src="https://res.cloudinary.com/dfxheyi1j/image/upload/v1704460483/wrysh32sud4s3p5sm3fn.png"
+                              alt="Facebook" title="Facebook" width="32"
+                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32"
+                    style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 15px">
+                    <tbody>
+                      <tr style="vertical-align: top">
+                        <td align="left" valign="middle"
+                          style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+                          <a href="https://www.linkedin.com/company/unlayer/mycompany/" title="LinkedIn"
+                            target="_blank">
+                            <img
+                              src="https://res.cloudinary.com/dfxheyi1j/image/upload/v1704460482/rximbon1dxzs82weypvx.png"
+                              alt="LinkedIn" title="LinkedIn" width="32"
+                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32"
+                    style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 15px">
+                    <tbody>
+                      <tr style="vertical-align: top">
+                        <td align="left" valign="middle"
+                          style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+                          <a href="https://www.instagram.com/unlayer_official/" title="Instagram" target="_blank">
+                            <img
+                              src="https://res.cloudinary.com/dfxheyi1j/image/upload/v1704460482/gqvx5eqn1ycdfolr7jms.png"
+                              alt="Instagram" title="Instagram" width="32"
+                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32"
+                    style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 0px">
+                    <tbody>
+                      <tr style="vertical-align: top">
+                        <td align="left" valign="middle"
+                          style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+                          <a href="https://twitter.com/unlayerapp" title="X" target="_blank">
+                            <img
+                              src="https://res.cloudinary.com/dfxheyi1j/image/upload/v1704460482/yqkhxpfzww2guavbc6xx.png"
+                              alt="X" title="X" width="32"
+                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
